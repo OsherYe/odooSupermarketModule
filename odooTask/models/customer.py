@@ -11,12 +11,12 @@ class Customer(models.Model):
     city = fields.Char('City')
     street = fields.Char('Street')
     
-    bestSellerItems = fields.Int(compute='_compute_bs')
+    most_freq_item = fields.Int(compute='_compute_bs')
 
     def _compute_bs(self):
         for record in self:
-            bestSellerSearch = self.env['supermarket.cartItem'].search((['castumerName', '=', record.name]), order='quantity', limit = '3')
-            record.bestSellerItems = bestSellerSearch
+            the_item = self.env['supermarket.cartItem'].search((['Name', '=', record.name]), order='quantity', limit = '4')
+            record.most_freq_item = the_item
     
     
 

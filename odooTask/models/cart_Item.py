@@ -1,7 +1,7 @@
 from oddo import models, fields
 
 
-class CartItem (models.Model):
+class Cart_item (models.Model):
     _name = 'supermarket.cartItem'
     _inherits = {
         'supermarket.cart': 'cart',
