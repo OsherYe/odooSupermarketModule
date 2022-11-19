@@ -5,11 +5,11 @@ class Cart (models.Model):
     _inherit = 'supermarket.customer'
     _description = 'Cart'
 
-    dateOfCreation = fields.Date(context_today='current time')
+    date = fields.Date(context_today='current time')
     total = fields.Float(compute='_compute_total_amount')
 
-    @api.depends('quantity', "priceForUnit")
+    @api.depends('quantity', 'unit_price')
     def _compute_total_amount(self):
         for record in self:
-            total = record.quantity * record.priceForUnit
+            total = record.quantity * record.unit_price
             record.total = total

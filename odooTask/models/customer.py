@@ -12,11 +12,19 @@ class Customer(models.Model):
     street = fields.Char('Street')
     
     most_freq_item = fields.Int(compute='_compute_bs')
-
+    discount_val = fields.Float(compute= '_apply_discount')
+    total = fields.Float(compute ='_apply_discount')
+    
+    ## discount on best seller product
+    @api.depends('value', 'discount')
     def _compute_bs(self):
         for record in self:
             the_item = self.env['supermarket.cartItem'].search((['Name', '=', record.name]), order='quantity', limit = '4')
             record.most_freq_item = the_item
+        discount = the_item * discount
+        the_item.discount_val = discount
+        the_item.total = the_item - discount
+        
     
     
 
