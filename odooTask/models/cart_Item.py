@@ -1,16 +1,14 @@
 from oddo import models, fields
 
-
-class Cart_item (models.Model):
-    _name = 'supermarket.cartItem'
-    _inherits = {
+class Cart_Item (models.Model):
+    _name = 'supermarket.Cart_Item'
+    _inherits = {   #cartItem has a cart and has a product
         'supermarket.cart': 'cart',
         'supermarket.product': 'product',
     }
-    _description = 'CartItem'
+    _description = 'Cart_Item'
 
     customer = fields.Many2one('supermarket.customer')
     cart = fields.Many2one('supermarket.cart')
     product = fields.Many2one('supermarket.product')
     quantity = fields.Integer()
-    amount = fields.Float(compute='_compute_total')

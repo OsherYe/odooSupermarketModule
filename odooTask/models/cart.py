@@ -1,5 +1,4 @@
 from odoo import models, fields, api
-from xmlrpc.client import DateTime, datetime 
 
 class Cart (models.Model):
     _name = 'supermarket.cart'

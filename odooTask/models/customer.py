@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class Customer(models.Model):
@@ -17,7 +17,7 @@ class Customer(models.Model):
     check_out = fields.Datetime('YYYY-MM-DD HH:MM:SS')
     
     ## discount on best seller product
-    @api.depends('value', 'discount')
+    @api.depends('discount')
     def _compute_item_most_freq(self):
         for record in self:
             the_item = self.env['supermarket.cartItem'].search((['Name', '=', record.name]), order='quantity', limit = '4')
@@ -30,7 +30,7 @@ class Customer(models.Model):
 
     @api.depends('cart.customer', 'cart.twice') #use compute info from other Module table.
     def _compute_custumers_appear(self):
-       return (self.cart_id.is_twice_aweek)
+       return (self.cart.twice)
         
     
     
